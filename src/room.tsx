@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Room = (props) => {
+interface RoomProps {
+
+}
+
+const Room = (_: RoomProps) => {
   return (
     <div>
       <Coin status={"Not yet flipped"} />
@@ -9,7 +13,11 @@ const Room = (props) => {
   );
 };
 
-const Coin = (props) => {
+interface CoinProps {
+  status: string
+}
+
+const Coin = (props: CoinProps) => {
   return <p>{props.status}</p>;
 };
 
