@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const App = (props) => {
+  return (
+    <div>
+      <Coin status={"Not yet flipped"} />
+      <button>Flip</button>
+    </div>
+  );
+};
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const Coin = (props) => {
+  return <p>{props.status}</p>;
+};
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
