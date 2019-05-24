@@ -24,7 +24,7 @@ const flipCoin = (id : string) => {
     uri: `${baseUrl}/room/${id}/flip`,
   };
   return request(options);
-}
+};
 
 const api = {
   createRoom,
