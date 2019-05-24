@@ -1,3 +1,13 @@
+# ChooseIt Frontend
+
+## Make decisions with friends
+
+This repo is the front-end component of the app, built using Typescript and React.
+
+The back-end can be found [here](https://github.com/tkindy/chooseit-backend).
+
+## Development
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
