@@ -44,10 +44,7 @@ class Room extends React.Component<RoomProps, RoomState> {
   handleFlip(id: string) {
     window.clearInterval(this.state.intervalId);
     api.flipCoin(id)
-      .then(() => {
-        console.log("Flip successful");
-        this.setUpdateInterval(id);
-      });
+      .then(() => this.setUpdateInterval(id));
   }
 
   render() {
