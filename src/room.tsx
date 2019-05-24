@@ -1,17 +1,68 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
+import api from './api';
 
-interface RoomProps {
-
+interface RoomParams {
+  id: string,
 }
 
-const Room = (_: RoomProps) => {
-  return (
-    <div>
-      <Coin status={"Not yet flipped"} />
-      <button>Flip</button>
-    </div>
-  );
-};
+type RoomProps = RouteComponentProps<RoomParams>;
+
+interface RoomState {
+  status: string,
+  intervalId: number | undefined,
+}
+
+class Room extends React.Component<RoomProps, RoomState> {
+  constructor(props: RoomProps) {
+    super(props);
+
+    const id = props.match.params.id;
+    const intervalId = this.setUpdateInterval(id);
+
+    this.state = {
+      status: 'Loading...',
+      intervalId: intervalId,
+    };
+  }
+
+  setUpdateInterval(id: string): number {
+    return window.setInterval(() => this.updateStatus(id), 2000);
+  }
+
+  updateStatus(id: string) {
+    api.getRoomStatus(id)
+      .then(status => this.setState({ status }))
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          status: `Error getting room status: ${err}`,
+        })
+      });
+  }
+
+  handleFlip(id: string) {
+    window.clearInterval(this.state.intervalId);
+    api.flipCoin(id)
+      .then(() => {
+        console.log("Flip successful");
+        this.setUpdateInterval(id);
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <Coin status={this.state.status} />
+        <button
+          onClick={() => this.handleFlip(this.props.match.params.id)}
+        >
+          Flip
+          </button>
+      </div>
+    );
+  }
+}
 
 interface CoinProps {
   status: string
