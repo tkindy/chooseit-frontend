@@ -1,11 +1,12 @@
 import request from 'request-promise-native';
 
 const baseUrl = "http://chooseit-api.tylerkindy.com";
+const roomBaseUrl = `${baseUrl}/rooms`;
 
 const createRoom = () => {
   const options = {
     method: 'POST',
-    uri: `${baseUrl}/new-room`,
+    uri: `${roomBaseUrl}/new`,
   };
   return request(options);
 };
@@ -13,7 +14,7 @@ const createRoom = () => {
 const getRoomStatus = (id: string) => {
   const options = {
     method: 'GET',
-    uri: `${baseUrl}/room/${id}`,
+    uri: `${roomBaseUrl}/${id}`,
   };
   return request(options);
 };
@@ -21,7 +22,7 @@ const getRoomStatus = (id: string) => {
 const flipCoin = (id : string) => {
   const options = {
     method: 'POST',
-    uri: `${baseUrl}/room/${id}/flip`,
+    uri: `${roomBaseUrl}/${id}/flip`,
   };
   return request(options);
 };
