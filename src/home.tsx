@@ -1,6 +1,7 @@
 import React from 'react';
 import api from './api';
 import { Redirect } from 'react-router';
+import { withHeader } from './common';
 
 interface HomeState {
   id: string | undefined,
@@ -24,8 +25,6 @@ class Home extends React.Component<{}, HomeState> {
 
     return (
       <div>
-        <h1>ChooseIt</h1>
-        <h2>Make decisions with friends</h2>
         <label>Room name
         <input
           type="text"
@@ -49,4 +48,4 @@ class Home extends React.Component<{}, HomeState> {
   }
 }
 
-export default Home;
+export default withHeader(Home);

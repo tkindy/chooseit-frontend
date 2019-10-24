@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import api from './api';
+import { withHeader } from './common';
 
 interface RoomParams {
   id: string,
@@ -72,4 +73,4 @@ const Coin = (props: CoinProps) => {
   return <p>{props.status}</p>;
 };
 
-export default Room;
+export default withHeader(Room);
