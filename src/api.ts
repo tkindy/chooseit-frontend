@@ -14,7 +14,7 @@ const createRoom = (name: string): Promise<RoomView> => {
   return request(options);
 };
 
-const getRoomStatus = (id: string): Promise<RoomView> => {
+const getRoom = (id: string): Promise<RoomView> => {
   const options = {
     method: 'GET',
     uri: `${roomBaseUrl}/${id}`,
@@ -33,7 +33,7 @@ const flipCoin = (id : string): Promise<void> => {
 
 const api = {
   createRoom,
-  getRoomStatus,
+  getRoom,
   flipCoin,
 };
 
