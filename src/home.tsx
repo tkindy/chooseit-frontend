@@ -3,7 +3,8 @@ import api from './api';
 import { Redirect } from 'react-router';
 
 interface HomeState {
-  id: string | undefined
+  id: string | undefined,
+  newName: string
 }
 
 class Home extends React.Component<{}, HomeState> {
@@ -12,6 +13,7 @@ class Home extends React.Component<{}, HomeState> {
 
     this.state = {
       id: undefined,
+      newName: ""
     };
   }
 
@@ -24,18 +26,26 @@ class Home extends React.Component<{}, HomeState> {
       <div>
         <h1>ChooseIt</h1>
         <h2>Make decisions with friends</h2>
+        <label>Room name
+        <input
+          type="text"
+          onChange={(event) => this.setState({ newName: event.target.value })}
+        />
+        </label>
         <button
-          onClick={() => this.handleNewRoom()}
+          onClick={() => this.handleNewRoom(this.state.newName)}
         >
-          New room
+          Create room
         </button>
       </div>
     );
   }
 
-  handleNewRoom() {
-    api.createRoom()
-      .then(id => this.setState({ id }));
+  handleNewRoom(name: string) {
+    api.createRoom(name)
+      .then(room => {
+        this.setState({ id: room.id });
+      });
   }
 }
 

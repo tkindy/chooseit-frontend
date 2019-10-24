@@ -6,11 +6,11 @@ interface RoomParams {
   id: string,
 }
 
-type RoomProps = RouteComponentProps<RoomParams>;
+type RoomProps = RouteComponentProps<RoomParams>
 
 interface RoomState {
   status: string,
-  intervalId: number | undefined,
+  intervalId: number,
 }
 
 class Room extends React.Component<RoomProps, RoomState> {
@@ -32,7 +32,7 @@ class Room extends React.Component<RoomProps, RoomState> {
 
   updateStatus(id: string) {
     api.getRoomStatus(id)
-      .then(status => this.setState({ status }))
+      .then(room => this.setState({ status: room.state }))
       .catch(err => {
         console.log(err);
         this.setState({
@@ -44,7 +44,10 @@ class Room extends React.Component<RoomProps, RoomState> {
   handleFlip(id: string) {
     window.clearInterval(this.state.intervalId);
     api.flipCoin(id)
-      .then(() => this.setUpdateInterval(id));
+      .then(() => {
+        this.updateStatus(id);
+        this.setUpdateInterval(id);
+      });
   }
 
   render() {
