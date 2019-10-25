@@ -1,19 +1,19 @@
-import React from 'react';
-import { RouteComponentProps } from 'react-router';
-import api from './api';
-import { withHeader } from './common';
+import React from "react";
+import { RouteComponentProps } from "react-router";
+import api from "./api";
+import { withHeader } from "./common";
 
 interface RoomParams {
-  id: string,
+  id: string;
 }
 
-type RoomProps = RouteComponentProps<RoomParams>
+type RoomProps = RouteComponentProps<RoomParams>;
 
 interface RoomState {
-  name: string,
-  status: string,
-  intervalId: Promise<number>,
-  canFlip: boolean,
+  name: string;
+  status: string;
+  intervalId: Promise<number>;
+  canFlip: boolean;
 }
 
 class Room extends React.Component<RoomProps, RoomState> {
@@ -24,16 +24,17 @@ class Room extends React.Component<RoomProps, RoomState> {
     const intervalId = this.setUpdateInterval(id);
 
     this.state = {
-      name: 'Loading...',
-      status: 'Loading...',
+      name: "Loading...",
+      status: "Loading...",
       intervalId: intervalId,
-      canFlip: false
+      canFlip: false,
     };
   }
 
   async setUpdateInterval(id: string): Promise<number> {
-    return this.updateRoom(id)
-      .then(() => window.setInterval(() => this.updateRoom(id), 2000));
+    return this.updateRoom(id).then(() =>
+      window.setInterval(() => this.updateRoom(id), 2000)
+    );
   }
 
   async updateRoom(id: string) {
@@ -44,8 +45,7 @@ class Room extends React.Component<RoomProps, RoomState> {
         status: room.state,
         canFlip: room.canFlip,
       });
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
       this.setState({
         status: `Error refreshing room: ${err}`,
@@ -85,7 +85,7 @@ class Room extends React.Component<RoomProps, RoomState> {
 }
 
 interface CoinProps {
-  status: string
+  status: string;
 }
 
 const Coin = (props: CoinProps) => {
