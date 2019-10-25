@@ -1,12 +1,12 @@
-import React from 'react';
-import api from './api';
-import { Redirect } from 'react-router';
-import { withHeader } from './common';
+import React from "react";
+import api from "./api";
+import { Redirect } from "react-router";
+import { withHeader } from "./common";
 
 interface HomeState {
-  id: string | undefined,
-  newName: string,
-  singleFlip: boolean,
+  id: string | undefined;
+  newName: string;
+  singleFlip: boolean;
 }
 
 class Home extends React.Component<{}, HomeState> {
@@ -22,7 +22,7 @@ class Home extends React.Component<{}, HomeState> {
 
   render() {
     if (this.state.id) {
-      return <Redirect to={`/room/${this.state.id}`} />
+      return <Redirect to={`/room/${this.state.id}`} />;
     }
 
     return (
@@ -32,35 +32,38 @@ class Home extends React.Component<{}, HomeState> {
             Room name
             <input
               type="text"
-              onChange={(event) => this.setState({ newName: event.target.value })}
+              onChange={event => this.setState({ newName: event.target.value })}
             />
           </label>
         </div>
         <div>
           <label>
             Single flip?
-          <input
+            <input
               type="checkbox"
-              onChange={(event) => this.setState({ singleFlip: event.target.checked })}
+              onChange={event =>
+                this.setState({ singleFlip: event.target.checked })
+              }
             />
           </label>
         </div>
         <div>
           <button
-            onClick={() => this.handleNewRoom(this.state.newName, this.state.singleFlip)}
+            onClick={() =>
+              this.handleNewRoom(this.state.newName, this.state.singleFlip)
+            }
           >
             Create room
-        </button>
+          </button>
         </div>
       </div>
     );
   }
 
   handleNewRoom(name: string, singleFlip: boolean) {
-    api.createRoom(name, singleFlip)
-      .then(room => {
-        this.setState({ id: room.id });
-      });
+    api.createRoom(name, singleFlip).then(room => {
+      this.setState({ id: room.id });
+    });
   }
 }
 
