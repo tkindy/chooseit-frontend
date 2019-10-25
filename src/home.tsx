@@ -5,7 +5,8 @@ import { withHeader } from './common';
 
 interface HomeState {
   id: string | undefined,
-  newName: string
+  newName: string,
+  singleFlip: boolean,
 }
 
 class Home extends React.Component<{}, HomeState> {
@@ -14,7 +15,8 @@ class Home extends React.Component<{}, HomeState> {
 
     this.state = {
       id: undefined,
-      newName: ""
+      newName: "",
+      singleFlip: false,
     };
   }
 
@@ -25,23 +27,37 @@ class Home extends React.Component<{}, HomeState> {
 
     return (
       <div>
-        <label>Room name
-        <input
-          type="text"
-          onChange={(event) => this.setState({ newName: event.target.value })}
-        />
-        </label>
-        <button
-          onClick={() => this.handleNewRoom(this.state.newName)}
-        >
-          Create room
+        <div>
+          <label>
+            Room name
+            <input
+              type="text"
+              onChange={(event) => this.setState({ newName: event.target.value })}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Single flip?
+          <input
+              type="checkbox"
+              onChange={(event) => this.setState({ singleFlip: event.target.checked })}
+            />
+          </label>
+        </div>
+        <div>
+          <button
+            onClick={() => this.handleNewRoom(this.state.newName, this.state.singleFlip)}
+          >
+            Create room
         </button>
+        </div>
       </div>
     );
   }
 
-  handleNewRoom(name: string) {
-    api.createRoom(name)
+  handleNewRoom(name: string, singleFlip: boolean) {
+    api.createRoom(name, singleFlip)
       .then(room => {
         this.setState({ id: room.id });
       });

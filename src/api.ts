@@ -4,11 +4,11 @@ import { RoomView } from './model';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const roomBaseUrl = `${baseUrl}/rooms`;
 
-const createRoom = (name: string): Promise<RoomView> => {
+const createRoom = (name: string, singleFlip: boolean): Promise<RoomView> => {
   const options = {
     method: 'POST',
     url: `${roomBaseUrl}`,
-    qs: { name },
+    qs: { name, singleFlip },
     json: true,
   };
   return request(options);
