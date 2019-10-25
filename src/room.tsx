@@ -13,6 +13,7 @@ interface RoomState {
   name: string,
   status: string,
   intervalId: Promise<number>,
+  canFlip: boolean,
 }
 
 class Room extends React.Component<RoomProps, RoomState> {
@@ -26,6 +27,7 @@ class Room extends React.Component<RoomProps, RoomState> {
       name: 'Loading...',
       status: 'Loading...',
       intervalId: intervalId,
+      canFlip: false
     };
   }
 
@@ -39,7 +41,8 @@ class Room extends React.Component<RoomProps, RoomState> {
       const room = await api.getRoom(id);
       return this.setState({
         name: room.name,
-        status: room.state
+        status: room.state,
+        canFlip: room.canFlip,
       });
     }
     catch (err) {
@@ -57,6 +60,13 @@ class Room extends React.Component<RoomProps, RoomState> {
       .then(() => this.setUpdateInterval(id));
   }
 
+  alreadyFlippedMessage() {
+    if (!this.state.canFlip) {
+      return <b>Already flipped</b>;
+    }
+    return <b></b>;
+  }
+
   render() {
     return (
       <div>
@@ -64,9 +74,11 @@ class Room extends React.Component<RoomProps, RoomState> {
         <Coin status={this.state.status} />
         <button
           onClick={() => this.handleFlip(this.props.match.params.id)}
+          disabled={!this.state.canFlip}
         >
           Flip
-          </button>
+        </button>
+        {}
       </div>
     );
   }
