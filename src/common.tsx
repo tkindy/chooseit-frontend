@@ -6,6 +6,6 @@ export const withHeader = <P extends object>(
   <div>
     <h1>ChooseIt</h1>
     <h2>Make decisions with friends</h2>
-    <Component {...(props as P)} />
+    <Component {...props} />
   </div>
 );
